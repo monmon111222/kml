@@ -1,17 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <GmapMap
+      :center="coodinate"
+      :zoom="15"
+      :style="{ width: '100vw', height: '100vh' }"
+      ref="mapRef"
+      id="map"
+      :options="{
+        mapTypeControl: false,
+        streetViewControl: false,
+      }"
+    ></GmapMap>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      coodinate: {
+        lat: -19.257753,
+        lng: 146.823688
+      }
+    }
+  },
+  mounted () {
+    this.$refs.mapRef.$mapPromise.then((map) => {
+      const google = window.google
+      const options = {
+        url: `https://${location.host}/public/westcampus.kml`
+      }
+      console.log('url', options.url)
+      const kml = new google.maps.KmlLayer({ map, options })
+      console.log(kml)
+    })
   }
 }
 </script>
