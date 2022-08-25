@@ -30,9 +30,8 @@ export default {
     this.$refs.mapRef.$mapPromise.then((map) => {
       const google = window.google
       const options = {
-        url: `https://${location.host}/cta.kml`
+        url: 'https://static.skysharp.com.tw/kml/cta.kml'
       }
-      console.log('url', options.url)
       const kml = new google.maps.KmlLayer({ map, options })
       console.log(kml)
     })
